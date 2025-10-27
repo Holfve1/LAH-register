@@ -10,7 +10,7 @@ from psycopg.rows import dict_row
 # That's why we have provided it!
 class DatabaseConnection:
     DEV_DATABASE_NAME = "LAH"
-    TEST_DATABASE_NAME = "LAH"
+    TEST_DATABASE_NAME = "LAH_test"
 
     def __init__(self, test_mode=False):
         self.test_mode = test_mode
