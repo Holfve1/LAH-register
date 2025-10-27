@@ -3,7 +3,7 @@ DROP SEQUENCE IF EXISTS register_id_seq;
 
 CREATE SEQUENCE IF NOT EXISTS register_id_seq;
 CREATE TABLE register (
-    id SERIAL PRIMIARY KEY,
+    id SERIAL PRIMARY KEY,
     first_name VARCHAR(255), 
     last_name VARCHAR(255),
     address VARCHAR(255)
