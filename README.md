@@ -1,3 +1,5 @@
+find . -type d -name "__pycache__" -exec rm -r {} +
+
 # pytest cache directory #
 
 This directory contains data from the pytest's cache plugin,
