@@ -1,5 +1,5 @@
 
-# from lib.attendee import Attendee
+# from lib.models.attendee import Attendee
 # from lib.attendee_repo import AttendeeRepository
 # from lib.database_connection import DatabaseConnection
 
