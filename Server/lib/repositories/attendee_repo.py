@@ -11,5 +11,21 @@ class AttendeeRepository:
             item = Attendee(row['id'], row['first_name'], row['last_name'], row['suburb'])
             attendees.append(item)
         return attendees
+
     def create(self, attendee):
         self.connection.execute('INSERT INTO attendees (first_name, last_name, suburb) VALUES(%s, %s, %s)', [attendee.first_name, attendee.last_name, attendee.suburb])
+
+    def delete():
+        pass
+    
+    def update():
+        pass
+    
+    def find(self, attendee):
+        pass
+        
+    def find_by_date():
+        pass
+
+    def find_by_name():
+        pass
