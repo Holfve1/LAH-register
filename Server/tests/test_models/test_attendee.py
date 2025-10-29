@@ -6,11 +6,11 @@ def test_attendee_initialises():
     assert attendee.last_name == "Smith"
     assert attendee.suburb == "Camden"
 
-def test_users_are_equal():
+def test_attendees_are_equal():
     attendee1 = Attendee(1, "Dave", "Smith", "Camden")
     attendee2 = Attendee(1, "Dave", "Smith", "Camden")
     assert attendee1 == attendee2
 
-def test_users_are_formatted_correctly():
+def test_attendees_are_formatted_correctly():
     attendee = Attendee(1, "Dave", "Smith", "Camden")
     assert str(attendee) == "Attendee(1, Dave, Smith, Camden)"

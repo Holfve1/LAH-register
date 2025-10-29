@@ -7,6 +7,15 @@ which provides the `--lf` and `--ff` options, as well as the `cache` fixture.
 
 See [the docs](https://docs.pytest.org/en/stable/how-to/cache.html) for more information.
 
+Cloned Repo
+created base seed file (no dates yet)
+created Register Model (no dates yet)
+Created Repo
+➜  LAH Register git:(main) ✗ python3 -m venv venv
+➜  LAH Register git:(main) ✗ source venv/bin/activate
+(venv) ➜  LAH Register git:(main) ✗ pip install -r requirements.txt
+
+
 setting up!!!!
 
 
