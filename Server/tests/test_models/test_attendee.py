@@ -1,4 +1,4 @@
-from lib.attendee import Attendee
+from lib.models.attendee import Attendee
 
 def test_attendee_initialises():
     attendee = Attendee(1, "Dave", "Smith", "Camden")
