@@ -14,18 +14,12 @@ class AttendeeRepository:
 
     def create(self, attendee):
         self.connection.execute('INSERT INTO attendees (first_name, last_name, suburb) VALUES(%s, %s, %s)', [attendee.first_name, attendee.last_name, attendee.suburb])
-
-    def delete():
-        pass
+        return None
     
-    def update():
-        pass
+    def delete(self, id):
+        self.connection.execute('DELETE FROM attendees WHERE id = %s', [id])
+        return None
     
-    def find(self, attendee):
-        pass
-        
-    def find_by_date():
-        pass
-
-    def find_by_name():
-        pass
+    def update(self, id, first_name, last_name, suburb):
+        self.connection.execute('UPDATE attendees SET first_name = %s, last_name = %s, suburb = %s WHERE id = %s', [first_name, last_name, suburb, id])
+        return None
