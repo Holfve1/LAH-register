@@ -40,7 +40,7 @@ CREATE SEQUENCE IF NOT EXISTS dates_id_seq;
 CREATE TABLE dates (
     id SERIAL PRIMARY KEY,
     date DATE, 
-    activity_id INT,
+    activity_id INT
     );
 
 INSERT INTO dates (date, activity_id) VALUES ('2025-05-03', 1);
@@ -58,9 +58,9 @@ CREATE TABLE registrations (
     date_id INT
     );
 
-INSERT INTO activities (attendee_id, date_id) VALUES (1, 1);
-INSERT INTO activities (attendee_id, date_id) VALUES (1, 2);
-INSERT INTO activities (attendee_id, date_id) VALUES (1, 3);
-INSERT INTO activities (attendee_id, date_id) VALUES (2, 1);
-INSERT INTO activities (attendee_id, date_id) VALUES (3, 3);
-INSERT INTO activities (attendee_id, date_id) VALUES (4, 2);
+INSERT INTO registrations (attendee_id, date_id) VALUES (1, 1);
+INSERT INTO registrations (attendee_id, date_id) VALUES (1, 2);
+INSERT INTO registrations (attendee_id, date_id) VALUES (1, 3);
+INSERT INTO registrations (attendee_id, date_id) VALUES (2, 1);
+INSERT INTO registrations (attendee_id, date_id) VALUES (3, 3);
+INSERT INTO registrations (attendee_id, date_id) VALUES (4, 2);

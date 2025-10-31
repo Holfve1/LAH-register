@@ -1,4 +1,4 @@
-from lib.attendee import Attendee
+from lib.models.attendee import Attendee
 
 class AttendeeRepository:
     def __init__(self, connection):
@@ -23,3 +23,4 @@ class AttendeeRepository:
     def update(self, id, first_name, last_name, suburb):
         self.connection.execute('UPDATE attendees SET first_name = %s, last_name = %s, suburb = %s WHERE id = %s', [first_name, last_name, suburb, id])
         return None
+    
