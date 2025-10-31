@@ -38,7 +38,7 @@ def test_deletes_attendee(db_connection):
     ]
 
 def test_updates_attendee(db_connection):
-    db_connection.seed("Server/seeds/seed.sql")
+    db_connection.seed('Server/seeds/seed.sql')
     attendee_repo = AttendeeRepository(db_connection)
     attendee_repo.update(1, 'David', 'Smith', 'Camden')
     attendees = attendee_repo.all()
