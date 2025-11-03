@@ -103,3 +103,87 @@ Not seeding DB before hitting endpoints
 If you want, I can generate minimal starter files for Server/app.py, Server/lib/database_connection.py, seeds, and a simple React fetch to confirm the stack end-to-end.
 
 
+--------------------------------------------------------------------------------
+
+Latin American House Registration Tool
+
+OVERVIEW
+A simple web application designed to help charities manage attendee registrations for recurring activities. The tool allows organisers to register attendees for specific activities on specific dates and aims to streamline event management and reporting.
+
+
+FEATURES
+Register attendees for activities scheduled on different dates
+Manage recurring activities and multiple sessions
+Export data for reporting:
+
+List of attendees per activity
+List of activities by date
+
+
+Simple Admin Login:
+
+One generic password for all admins (no individual accounts)
+Password stored securely using hashing
+
+
+TECH STACK
+Backend: Python (Flask), PostgreSQL, psycopg2
+Frontend: React, JavaScript
+Database: PostgreSQL
+
+
+AUTHENTICATION
+Minimal login system with a single admin password
+Secure password hashing (e.g., bcrypt or werkzeug.security) ........***
+Session-based access control for admin actions
+
+
+Getting Started
+1. Clone the repository:
+git clone https://github.com/..................................***
+
+2. Install backend dependencies:
+pip install -r requirements.txt
+
+3. Install frontend dependencies:
+pip install -r requirements.txt
+
+Run the app:
+flask run
+
+
+DATABASE SCHEMA
+Attendee: Stores attendee details
+Activity: Stores activity details
+Date: Links activities to specific dates
+Registration: Links attendees to date
+
+
+ER DIAGRAM
+erDiagram
+    ATTENDEE {
+        int id PK
+        string first name
+        string last name
+        string county
+        
+    }
+    ACTIVITY {
+        int id PK
+        string name
+        
+    }
+    DATE {
+        int id PK
+        date activity_date
+        int activity_id FK
+    }
+    REGISTRATION {
+        int id PK
+        int attendee_id FK
+        int DATE_id FK
+    }
+
+    ATTENDEE ||--o{ REGISTRATION : "registers"
+    DATE ||--o{ REGISTRATION : "has"
+    ACTIVITY ||--o{ DATE : "scheduled on"
