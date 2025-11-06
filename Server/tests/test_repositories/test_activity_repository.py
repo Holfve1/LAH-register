@@ -1,5 +1,5 @@
 from lib.models.activity import Activity
-from lib.repositories.activity_repo import ActivityRepository
+from lib.repositories.activity_repository import ActivityRepository
 
 def test_gets_all_activities(db_connection):
     db_connection.seed('Server/seeds/seed.sql')

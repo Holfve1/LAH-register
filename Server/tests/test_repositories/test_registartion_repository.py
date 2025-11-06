@@ -1,6 +1,6 @@
 
 from lib.models.registration import Registration
-from lib.repositories.registration_repo import RegistrationRepository
+from lib.repositories.registration_repository import RegistrationRepository
 
 def test_gets_all_registrations(db_connection):
     db_connection.seed("Server/seeds/seed.sql")
