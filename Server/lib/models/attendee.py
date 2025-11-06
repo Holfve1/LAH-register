@@ -9,4 +9,4 @@ class Attendee:
         return self.__dict__ == other.__dict__
 
     def __repr__(self):
-        return f"Attendee({self.id}, {self.first_name}, {self.last_name}, {self.suburb})"
+        return f"Attendee({self.id}, {self.first_name}, {self.last_name}, {self.suburb})" 
