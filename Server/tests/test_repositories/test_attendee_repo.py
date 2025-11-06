@@ -1,6 +1,6 @@
 
 from lib.models.attendee import Attendee
-from lib.repositories.attendee_repository import AttendeeRepository
+from lib.repositories.attendee_repo import AttendeeRepository
 
 def test_gets_all_attendees(db_connection):
     db_connection.seed("Server/seeds/seed.sql")
