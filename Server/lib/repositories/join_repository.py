@@ -9,7 +9,7 @@ class JoinRepository:
 # Returns a list of activities for a given attendee_id
     def find_activities_by_attendee_id(self, attendee_id):
         query = '''
-            SELECT a.activity, d.date
+            SELECT a.activity, d.date::TEXT
             FROM registrations r
             JOIN dates d ON r.date_id = d.id
             JOIN activities a ON d.activity_id = a.id
@@ -28,7 +28,7 @@ class JoinRepository:
             JOIN attendees at ON r.attendee_id = at.id
             JOIN dates d ON r.date_id = d.id
             JOIN activities a ON d.activity_id = a.id
-            ORDER by a.id, at.last_name, at.first_name;
+            ORDER by a.activity, at.last_name, at.first_name;
         '''
         rows = self.connection.execute(query)
         return rows
@@ -36,20 +36,20 @@ class JoinRepository:
 # Returns a list of dates and attendees for a given activity_id
     def find_dates_and_attendees_by_activity_id(self, activity_id):
         query = '''
-            SELECT d.date, at.first_name, at.last_name
+            SELECT d.date::TEXT, at.first_name, at.last_name
             FROM registrations r
             JOIN attendees at ON r.attendee_id = at.id
             JOIN dates d ON r.date_id = d.id
             JOIN activities a ON d.activity_id = a.id
             WHERE a.id = %s
-            ORDER by d.date;
+            ORDER by d.date, at.last_name, at.first_name;
         '''
         rows = self.connection.execute(query, [activity_id])
         return rows
 # Returns a list of all activities with their dates and attendees
     def all_activities_with_dates_and_attendees(self):
         query = '''
-            SELECT d.date, a.activity, at.first_name, at.last_name
+            SELECT d.date::TEXT, a.activity, at.first_name, at.last_name
             FROM registrations r
             JOIN attendees at ON r.attendee_id = at.id
             JOIN dates d ON r.date_id = d.id
@@ -62,7 +62,7 @@ class JoinRepository:
 # Returns a date with its activities and attendees
     def find_date_with_activities_and_attendees(self, date_id):
         query = '''
-            SELECT d.date, a.activity, at.first_name, at.last_name
+            SELECT d.date::TEXT, a.activity, at.first_name, at.last_name
             FROM registrations r
             JOIN dates d ON r.date_id = d.id
             JOIN activities a ON d.activity_id = a.id
@@ -75,7 +75,7 @@ class JoinRepository:
 # Returns a list of all dates with their activities and attendees
     def all_dates_with_activities_and_attendees(self):
         query = '''
-            SELECT d.date, a.activity, at.first_name, at.last_name
+            SELECT d.date::TEXT, a.activity, at.first_name, at.last_name
             FROM registrations r
             JOIN dates d ON r.date_id = d.id
             JOIN activities a ON d.activity_id = a.id
