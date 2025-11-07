@@ -1,7 +1,7 @@
 
 from datetime import date
 from lib.models.date import Date
-from lib.repositories.date_repository import DateRepository
+from lib.repositories.date_repo import DateRepository
 
 def test_gets_all_dates(db_connection):
     db_connection.seed("Server/seeds/seed.sql")

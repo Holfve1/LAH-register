@@ -2,7 +2,7 @@ from lib.models.attendee import Attendee
 from lib.models.activity import Activity
 from lib.models.date import Date
 from lib.models.registration import Registration
-from lib.repositories.join_repository import JoinRepository
+from lib.repositories.join_repo import JoinRepository
 
 def test_find_activities_by_attendee_id(db_connection):
     db_connection.seed("Server/seeds/seed.sql")
