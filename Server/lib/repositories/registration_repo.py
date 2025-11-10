@@ -5,7 +5,7 @@ class RegistrationRepository():
         self.connection = connection
 
     def all(self):
-        rows = self.connection.execute('SELECT * FROM registrations')
+        rows = self.connection.execute('SELECT * FROM registrations ORDER by id')
         registrations = []
         for row in rows:
             item = Registration(row['id'], row['attendee_id'], row['date_id'])

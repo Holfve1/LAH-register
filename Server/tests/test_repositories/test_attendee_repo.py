@@ -43,8 +43,9 @@ def test_updates_attendee(db_connection):
     attendee_repo.update(1, 'David', 'Smith', 'Camden')
     attendees = attendee_repo.all()
     assert attendees == [
+            Attendee(1, 'David', 'Smith', 'Camden'),
             Attendee(2, 'Sam', 'Fell', 'Kilburn'),
             Attendee(3, 'John', 'Doe', 'Westminster'),
-            Attendee(4, 'Sarah', 'Dunce', 'Elephant & Castle'),
-            Attendee(1, 'David', 'Smith', 'Camden'),
+            Attendee(4, 'Sarah', 'Dunce', 'Elephant & Castle')
+            
     ]

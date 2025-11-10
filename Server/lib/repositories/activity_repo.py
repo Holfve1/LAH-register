@@ -5,7 +5,7 @@ class ActivityRepository():
         self.connection  = connection
 
     def all(self):
-        rows = self.connection.execute('SELECT * FROM activities')
+        rows = self.connection.execute('SELECT * FROM activities ORDER by id')
         activities = []
         for row in rows:
             item = Activity(row['id'], row['activity'])

@@ -50,12 +50,13 @@ def test_updates_date(db_connection):
     date_repo.update(1, "2025-01-20", 2)
     dates = date_repo.all()
     assert dates == [
+        Date(1, date(2025, 1, 20), 2),
         Date(2, date(2025, 5, 5), 2),
         Date(3, date(2025, 6, 11), 2),
         Date(4, date(2025, 7, 15), 3),
         Date(5, date(2025, 9, 21), 3),
-        Date(6, date(2025, 10, 26), 1),
-        Date(1, date(2025, 1, 20), 2),
+        Date(6, date(2025, 10, 26), 1)
+        
     ]
 
 def test_find_by_date_id(db_connection):

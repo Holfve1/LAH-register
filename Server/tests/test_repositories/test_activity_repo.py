@@ -38,7 +38,8 @@ def test_updates_activity(db_connection):
     activity_repo.update(1, 'Ice Skating')
     activities = activity_repo.all()
     assert activities == [
+            Activity(1, 'Ice Skating'),
             Activity(2, 'Salsa classes'),
-            Activity(3, 'Spanish school'),
-            Activity(1, 'Ice Skating')
+            Activity(3, 'Spanish school')
+            
     ]

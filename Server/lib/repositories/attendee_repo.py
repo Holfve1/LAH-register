@@ -5,7 +5,7 @@ class AttendeeRepository:
         self.connection = connection
 
     def all(self):
-        rows = self.connection.execute('SELECT * FROM attendees')
+        rows = self.connection.execute('SELECT * FROM attendees ORDER by id')
         attendees = []
         for row in rows:
             item = Attendee(row['id'], row['first_name'], row['last_name'], row['suburb'])

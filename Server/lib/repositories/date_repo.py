@@ -5,7 +5,7 @@ class DateRepository:
         self.connection = connection
 
     def all(self):
-        rows = self.connection.execute('SELECT * FROM dates')
+        rows = self.connection.execute('SELECT * FROM dates ORDER by id')
         dates = []
         for row in rows:
             item = Date(row['id'], row['date'], row['activity_id'])

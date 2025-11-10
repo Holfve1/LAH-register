@@ -49,10 +49,11 @@ def test_updates_attendee(db_connection):
     registration_repo.update(1, 3, 3)
     registrations = registration_repo.all()
     assert registrations == [
+                Registration(1, 3, 3),
                 Registration(2, 1, 2),
                 Registration(3, 1, 3),
                 Registration(4, 2, 1),
                 Registration(5, 3, 3),
-                Registration(6, 4, 2),
-                Registration(1, 3, 3)
+                Registration(6, 4, 2)
+                
     ]
