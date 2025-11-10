@@ -33,9 +33,18 @@ def test_activity_gets_created(web_client, db_connection):
     assert 'Dia De La Muerta' in activities
 
 def test_activity_gets_deleted(web_client, db_connection):
-    db_connection.seed("Server/seeds/seed.sql")
-    response = web_client.delete("/activities/1")
+    db_connection.seed('Server/seeds/seed.sql')
+    response = web_client.delete('/activities/1')
     assert response.status_code == 204 
-    updated = web_client.get("/activities").get_json()
-    activities = [a["activity"] for a in updated]
+    updated = web_client.get('/activities').get_json()
+    activities = [a['activity'] for a in updated]
     assert "Paintball" not in activities
+
+def test_activity_gets_updates(web_client, db_connection):
+    db_connection.seed("Server/seeds/seed.sql")
+    response = web_client.patch("/activities/1", json={'activity': 'Day Of The Dead'})
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data['message'] == 'Activity upadted successfully'
+    updated = web_client.get('/activities').get_json()
+    assert updated[0]['activity'] == 'Day Of The Dead'

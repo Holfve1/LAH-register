@@ -44,16 +44,16 @@ def apply_activity_routes(app):
         return '', 204
 
     @app.route('/activities/<int:id>', methods=['PATCH'])
-    def update_activity():
+    def update_activity(id):
         connection = get_flask_database_connection(app)
         activity_repo = ActivityRepository(connection)
         data = request.get_json()
         activity_name = data.get('activity')
         updated_activity = activity_repo.update(id, activity_name)
         return jsonify({
-            'message': 'Activity created updated',
+            'message': 'Activity upadted successfully',
             'activity': {
                 'id': id,
-                'activity': updated_activity.activity
+                'activity': activity_name
             }
         }), 200
