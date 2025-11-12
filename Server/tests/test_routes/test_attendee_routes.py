@@ -34,7 +34,7 @@ def test_get_all_attendees_data_matches_seed(web_client, db_connection):
 
     assert data == expected
 
-def test_activity_gets_created(web_client, db_connection):
+def test_antendee_gets_created(web_client, db_connection):
     db_connection.seed("Server/seds/seed.sql")
     response = web_client.post("/attendees", json={
         'first_name': 'Alice',
