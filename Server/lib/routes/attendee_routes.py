@@ -1,6 +1,7 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from lib.database_connection import get_flask_database_connection
 from lib.repositories.attendee_repo import AttendeeRepository
+from lib.models.attendee import Attendee
 
 def apply_attendee_routes(app):
 
