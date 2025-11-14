@@ -34,8 +34,8 @@ def test_get_all_attendees_data_matches_seed(web_client, db_connection):
 
     assert data == expected
 
-def test_antendee_gets_created(web_client, db_connection):
-    db_connection.seed("Server/seds/seed.sql")
+def test_attendee_gets_created(web_client, db_connection):
+    db_connection.seed("Server/seeds/seed.sql")
     response = web_client.post("/attendees", json={
         'first_name': 'Alice',
         'last_name': 'Johnson',
@@ -49,7 +49,7 @@ def test_antendee_gets_created(web_client, db_connection):
     attendees = [f"{a['first_name']} {a['last_name']}" for a in updated]
     assert 'Alice Johnson' in attendees
 
-def test_activity_gets_deleted(web_client, db_connection):
+def test_attendee_gets_deleted(web_client, db_connection):
     db_connection.seed('Server/seeds/seed.sql')
     response = web_client.delete('/attendees/1')
     assert response.status_code == 204 
