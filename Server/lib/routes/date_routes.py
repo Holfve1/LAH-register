@@ -15,7 +15,7 @@ def apply_date_routes(app):
         for date in dates:
             result.append({
                 'id': date.id,
-                'date': date.date,
+                'date': str(date.date),
                 'activity_id': date.activity_id
             })
         return jsonify(result)
@@ -31,19 +31,19 @@ def apply_date_routes(app):
         date_repo.create(new_date)
         return jsonify ({
             'message': 'Date created successfully',
-            'id': date.id,
-            'date': date.date,
-            'activity_id': date.activity_id
+            'id': new_date.id,
+            'date': new_date.date,
+            'activity_id': new_date.activity_id
         }), 201
     
-    @app.route('/date/<int:id>', methods=['DELETE'])
+    @app.route('/dates/<int:id>', methods=['DELETE'])
     def delete_date(id):
         connection = get_flask_database_connection(app)
         date_repo = DateRepository(connection)
         date_repo.delete(id)
         return '', 204
     
-    @app.route('/date/<int:id>', methods=['PATCH'])
+    @app.route('/dates/<int:id>', methods=['PATCH'])
     def update_date(id):
         connection = get_flask_database_connection(app)
         date_repo = DateRepository(connection)
@@ -53,7 +53,7 @@ def apply_date_routes(app):
         updated_date = date_repo.update(id, date, activity_id)
         return jsonify({
             'message': 'Date updated successfully',
-            'id': date.id,
-            'date': date.date,
-            'activity_id': date.activity_id
+            'id': id,
+            'date': str(date),
+            'activity_id': activity_id
             }),  200
