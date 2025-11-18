@@ -66,3 +66,5 @@ def apply_attendee_routes(app):
                 'suburb': suburb
             }
         }), 200
+    
+    
