@@ -8,13 +8,13 @@ def apply_join_routes(app):
     def get_all_activities_by_attendee_id():
         connection = get_flask_database_connection(app)
         join_repo = JoinRepository(connection)
-        attendee_id = request.args.get('attendee_id')
-        activities = join_repo.find_activities_by_attendee_id(attendee_id)
+        attendee_id = request.args.get('id')
+        rows = join_repo.find_activities_by_attendee_id(attendee_id)
         result = []
-        for activity, date in activities:
+        for row in rows:
             result.append({
-                'activity': activity,
-                'date': date
+                'activity': row['activity'],
+                'date': row['date']
             })
         return jsonify(result)
     
@@ -36,7 +36,7 @@ def apply_join_routes(app):
     def get_dates_and_attendees_by_activity_id():
         connection = get_flask_database_connection(app)
         join_repo = JoinRepository(connection)
-        activity_id = request.args.get('activity_id')
+        activity_id = request.args.get('id')
         rows = join_repo.find_dates_and_attendees_by_activity_id(activity_id)
         result = []
         for row in rows:
@@ -62,11 +62,11 @@ def apply_join_routes(app):
             })
         return jsonify(result)
 
-    @app.route('/dates-with-activities-and-attendees', methods=['GET'])
+    @app.route('/date-with-activities-and-attendees', methods=['GET'])
     def get_a_date_with_activities_and_attendees():
         connection = get_flask_database_connection(app)
         join_repo = JoinRepository(connection)
-        date_id = request.args.get('date_id')
+        date_id = request.args.get('id')
         rows = join_repo.find_date_with_activities_and_attendees(date_id)
         result = []
         for row in rows:
