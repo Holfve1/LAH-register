@@ -4,5 +4,5 @@ import App from "../src/App";
 
 test("renders without crashing", () => {
   render(<App />);
-  expect(screen.getByText(/LAH/i)).toBeInTheDocument();
+  expect(screen.getByText(/Admin Login/i)).toBeInTheDocument();
 });
