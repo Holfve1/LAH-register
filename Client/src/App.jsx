@@ -19,7 +19,15 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <video
+        className="bg-video"
+        src="/CW_Logo_orange.mp4"
+        autoPlay
+        muted
+        loop
+      />
     </>
+    
   );
 }
 
