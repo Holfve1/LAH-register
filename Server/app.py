@@ -1,5 +1,6 @@
 import os
 from flask import Flask, jsonify, request, render_template, flash
+from flask_cors import CORS
 from lib.routes.join_routes import apply_join_routes
 from lib.database_connection import get_flask_database_connection
 from lib.routes.attendee_routes import apply_attendee_routes
@@ -13,7 +14,7 @@ load_dotenv()
 # Create a new Flask app
 app = Flask(__name__)
 app.secret_key = 'i_dont_get_this'
-
+CORS(app, origins=["http://localhost:5173"]) #need to change for/update for deployment
 
 apply_attendee_routes(app)
 apply_activity_routes(app)
