@@ -20,7 +20,7 @@ body {
   left: 50%;             /* Middle horizontally */
   transform: translateX(-50%); /* Center alignment */
   z-index: 999;          /* Places video ABOVE background image */
-  width: 160px;          /* Adjust as needed */
+  width: 120px;          /* Adjust as needed */
   height: auto;
   pointer-events: none;  /* Optional: avoids blocking clicks */
 }
