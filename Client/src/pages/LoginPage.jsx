@@ -29,7 +29,7 @@ export function LoginPage() {
   }
 
   return (
-    <main>
+    <main className="min-h-screen flex flex-col items-center justify-center px-4">
       <h2>Admin Login</h2>
       <form onSubmit={handleLogin}>
         <input
