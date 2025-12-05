@@ -8,6 +8,8 @@ from lib.routes.activity_routes import apply_activity_routes
 from lib.routes.csv_routes import apply_csv_routes
 from lib.routes.date_routes import apply_date_routes
 from lib.routes.registration_routes import apply_registration_routes
+import smtplib
+from email.message import EmailMessage
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -24,6 +26,11 @@ apply_join_routes(app)
 
 apply_csv_routes(app)
 
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+SEND_TO_EMAIL = os.getenv("SEND_TO_EMAIL")
+SMTP_EMAIL = os.getenv("SMTP_EMAIL")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -36,6 +43,29 @@ def login():
         return jsonify({'success': True})
     else:
         return jsonify({'success': False}), 401
+
+
+
+@app.post("/forgot-password")
+def forgot_password():
+    try:
+        msg = EmailMessage()
+        msg["Subject"] = "Admin Password Reminder"
+        msg["From"] = SMTP_EMAIL
+        msg["To"] = SEND_TO_EMAIL
+        msg.set_content(f"The admin password is: {ADMIN_PASSWORD}")
+
+       
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(SMTP_EMAIL, SMTP_PASSWORD)
+            smtp.send_message(msg)
+
+        return jsonify({"success": True})
+
+    except Exception as e:
+        print("Email sending failed:", e)
+        return jsonify({"success": False, "error": str(e)})
+
 
 
 if __name__ == '__main__':
