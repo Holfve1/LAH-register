@@ -28,9 +28,29 @@ export function LoginPage() {
     }
   }
 
+  async function handleForgotPassword() {
+  try {
+    const res = await fetch(`${API_URL}/forgot-password`, {
+      method: "POST",
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("A password reminder has been emailed to the admin.");
+    } else {
+      alert("Failed to send reminder email.");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Could not connect to server.");
+  }
+}
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4">
-      <h2 className="text-3xl text-white font-semibold mb-6">Admin Login</h2>
+      <h2 className="text-3xl text-white mb-6">Admin Login</h2>
       <form 
         onSubmit={handleLogin}
         className="flex flex-col gap-4 w-full max-w-xs items-center">
@@ -47,12 +67,12 @@ export function LoginPage() {
         >
           Login
         </button>
-        <button 
-        type="submit"
-        className="p-3 w-fit rounded text-white font-medium hover:transition"
+        <a
+          onClick={handleForgotPassword}
+          className="text-white underline cursor-pointer"
         >
           Forgot Password
-        </button>
+        </a>
       </form>
     </main>
   );
