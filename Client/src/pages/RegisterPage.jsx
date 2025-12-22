@@ -1,10 +1,5 @@
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+import { AttendeeForm } from "../components/AttendeeForm";
 
 export function RegisterPage() {
-  return (
-    <div style={{ padding: 24, fontFamily: 'system-ui, sans-serif' }}>
-      <h1>Register Page</h1>
-      <p>If you can see this, it is working.</p>
-    </div>
-  )
+  return <AttendeeForm />;
 }

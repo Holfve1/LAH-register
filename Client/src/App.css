@@ -3,7 +3,7 @@
 #root {
   margin: 0 auto;
   text-align: center;
-}
+  background: gray;
 
 body {
   margin: 0;
@@ -26,3 +26,4 @@ body {
   height: auto;
   pointer-events: none;  /* Optional: avoids blocking clicks */
 }
+
