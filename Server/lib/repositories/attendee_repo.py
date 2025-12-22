@@ -13,8 +13,12 @@ class AttendeeRepository:
         return attendees
 
     def create(self, attendee):
-        self.connection.execute('INSERT INTO attendees (first_name, last_name, suburb) VALUES(%s, %s, %s)', [attendee.first_name, attendee.last_name, attendee.suburb])
-        return None
+        rows = self.connection.execute(
+            'INSERT INTO attendees (first_name, last_name, suburb) VALUES (%s, %s, %s) RETURNING id',
+            [attendee.first_name, attendee.last_name, attendee.suburb]
+        )
+        attendee.id = rows[0]['id']
+        return attendee
     
     def delete(self, id):
         self.connection.execute('DELETE FROM attendees WHERE id = %s', [id])

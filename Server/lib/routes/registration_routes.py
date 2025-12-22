@@ -28,7 +28,7 @@ def apply_registration_routes(app):
         data = request.get_json()
         date_id = data.get('date_id')
         attendee_id = data.get('attendee_id')
-        new_registration = Registration(None, date_id, attendee_id)
+        new_registration = Registration(None, attendee_id, date_id)
         registration_repo.create(new_registration)
         return jsonify({
             'message': 'Registration created successfully',

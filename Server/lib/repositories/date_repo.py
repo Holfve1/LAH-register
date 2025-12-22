@@ -16,9 +16,13 @@ class DateRepository:
         self.connection.execute('INSERT INTO dates (date, activity_id) VALUES(%s, %s)', [date.date, date.activity_id])
         return None
     
-    def delete(self, id):
-        self.connection.execute('DELETE FROM dates WHERE id = %s', [id])
-        return None
+    def create(self, date):
+        rows = self.connection.execute(
+            'INSERT INTO dates (date, activity_id) VALUES (%s, %s) RETURNING id',
+            [date.date, date.activity_id]
+        )
+        date.id = rows[0]['id']
+        return date
     
     def update(self, id, date, activity_id):
         self.connection.execute('UPDATE dates SET date = %s, activity_id = %s WHERE id = %s', [date, activity_id, id])

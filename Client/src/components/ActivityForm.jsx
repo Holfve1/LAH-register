@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { createActivity, getAllActivities } from "../services/activities";
 
-export function ActivityForm() {
+export function ActivityForm({ onSelectActivity }) {
   const [activity, setActivity] = useState("");
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     async function loadActivities() {
@@ -19,8 +20,14 @@ export function ActivityForm() {
     loadActivities();
   }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleChange = (e) => {
+    setActivity(e.target.value);
+    setShowSuggestions(true);
+    setError("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setError("");
 
     const trimmed = activity.trim();
@@ -35,10 +42,12 @@ export function ActivityForm() {
 
     try {
       if (existing) {
-        console.log("Using existing activity:", existing);
+        if (onSelectActivity) onSelectActivity(existing);
       } else {
-        await createActivity(trimmed);
+        const created = await createActivity(trimmed);
+        if (onSelectActivity) onSelectActivity(created.activity);
       }
+      setShowSuggestions(false);
     } catch (err) {
       console.error("Create activity failed:", err);
       setError("Could not create activity. Please try again.");
@@ -52,8 +61,10 @@ export function ActivityForm() {
           a.activity.toLowerCase().includes(activity.toLowerCase())
         );
 
-  const handleSelectSuggestion = (name) => {
-    setActivity(name);
+  const handleSelectSuggestion = (a) => {
+    setActivity(a.activity);
+    setShowSuggestions(false);
+    if (onSelectActivity) onSelectActivity(a);
   };
 
   return (
@@ -65,10 +76,10 @@ export function ActivityForm() {
             type="text"
             placeholder="Activity"
             value={activity}
-            onChange={(e) => setActivity(e.target.value)}
+            onChange={handleChange}
           />
 
-          {filteredActivities.length > 0 && (
+          {showSuggestions && filteredActivities.length > 0 && (
             <ul
               style={{
                 position: "absolute",
@@ -85,7 +96,7 @@ export function ActivityForm() {
                 <li
                   key={a.id}
                   style={{ padding: "4px 8px", cursor: "pointer" }}
-                  onClick={() => handleSelectSuggestion(a.activity)}
+                  onClick={() => handleSelectSuggestion(a)}
                 >
                   {a.activity}
                 </li>
@@ -95,7 +106,6 @@ export function ActivityForm() {
         </div>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
-
         <button>submit</button>
       </form>
     </div>
