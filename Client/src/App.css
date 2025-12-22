@@ -1,6 +1,29 @@
+@import "tailwindcss";
+
 #root {
   margin: 0 auto;
   text-align: center;
   background: gray;
 
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('/background.png');
+  background-size: contain;      /* Ensures the whole image is visible */
+  background-repeat: no-repeat;  /* Prevent tiling */
+  background-position: center;   /* Center on the screen */
+  background-color: #333333;       /* Fills empty space */
+  height: 100vh;                 /* Makes body full viewport height */
 }
+
+.bg-video {
+  position: fixed;       /* Keeps it in place on all pages */
+  bottom: 20px;          /* Distance from bottom */
+  left: 50%;             /* Middle horizontally */
+  transform: translateX(-50%); /* Center alignment */
+  z-index: 999;          /* Places video ABOVE background image */
+  width: 120px;          /* Adjust as needed */
+  height: auto;
+  pointer-events: none;  /* Optional: avoids blocking clicks */
+}
+
