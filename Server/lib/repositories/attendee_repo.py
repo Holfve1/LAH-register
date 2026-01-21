@@ -11,6 +11,19 @@ class AttendeeRepository:
             item = Attendee(row['id'], row['first_name'], row['last_name'], row['suburb'])
             attendees.append(item)
         return attendees
+    
+    def find_by_details(self, first_name, last_name, suburb):
+        rows = self.connection.execute(
+            '''
+            SELECT * FROM attendees
+            WHERE first_name = %s AND last_name = %s AND suburb = %s
+            ''',
+            [first_name, last_name, suburb]
+        )
+        if rows:
+            row = rows[0]
+            return Attendee(row['id'], row['first_name'], row['last_name'], row['suburb'])
+        return None
 
     def create(self, attendee):
         rows = self.connection.execute(

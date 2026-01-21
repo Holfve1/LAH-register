@@ -25,14 +25,26 @@ def apply_date_routes(app):
         connection = get_flask_database_connection(app)
         date_repo = DateRepository(connection)
         data = request.get_json()
-        date = data.get('date')
+
+        date_value = data.get('date')
         activity_id = data.get('activity_id')
-        new_date = Date(None, date, activity_id)
+
+        existing = date_repo.find_by_date_and_activity_id(date_value, activity_id)
+        if existing:
+            return jsonify({
+                'message': 'Date already exists',
+                'id': existing.id,
+                'date': str(existing.date),
+                'activity_id': existing.activity_id
+            }), 200
+
+        new_date = Date(None, date_value, activity_id)
         date_repo.create(new_date)
-        return jsonify ({
+
+        return jsonify({
             'message': 'Date created successfully',
             'id': new_date.id,
-            'date': new_date.date,
+            'date': str(new_date.date),
             'activity_id': new_date.activity_id
         }), 201
     

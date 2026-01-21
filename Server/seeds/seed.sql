@@ -16,7 +16,8 @@ CREATE TABLE attendees (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255), 
     last_name VARCHAR(255),
-    suburb VARCHAR(255)
+    suburb VARCHAR(255),
+    CONSTRAINT attendees_unique_name_suburb UNIQUE (first_name, last_name, suburb)
     );
 
 INSERT INTO attendees (first_name, last_name, suburb) VALUES ('Dave', 'Smith', 'Camden');
@@ -40,7 +41,8 @@ CREATE SEQUENCE IF NOT EXISTS dates_id_seq;
 CREATE TABLE dates (
     id SERIAL PRIMARY KEY,
     date DATE, 
-    activity_id INT
+    activity_id INT,
+    CONSTRAINT dates_unique_date_activity UNIQUE (date, activity_id)
     );
 
 INSERT INTO dates (date, activity_id) VALUES ('2025-05-03', 1);
@@ -55,7 +57,8 @@ CREATE SEQUENCE IF NOT EXISTS registrations_id_seq;
 CREATE TABLE registrations (
     id SERIAL PRIMARY KEY,
     attendee_id INT,
-    date_id INT
+    date_id INT,
+    CONSTRAINT registrations_unique_attendee_date UNIQUE (attendee_id, date_id)
     );
 
 INSERT INTO registrations (attendee_id, date_id) VALUES (1, 1);

@@ -26,16 +26,31 @@ def apply_registration_routes(app):
         connection = get_flask_database_connection(app)
         registration_repo = RegistrationRepository(connection)
         data = request.get_json()
+
         date_id = data.get('date_id')
         attendee_id = data.get('attendee_id')
+
+        existing = registration_repo.find_by_attendee_and_date(attendee_id, date_id)
+        if existing:
+            return jsonify({
+                'message': 'Registration already exists',
+                'registration': {
+                    'id': existing.id,
+                    'attendee_id': existing.attendee_id,
+                    'date_id': existing.date_id
+                }
+            }), 200
+
         new_registration = Registration(None, attendee_id, date_id)
-        registration_repo.create(new_registration)
+       
+        created = registration_repo.create(new_registration)
+
         return jsonify({
             'message': 'Registration created successfully',
             'registration': {
-                'id': new_registration.id,
-                'attendee_id': new_registration.attendee_id,
-                'date_id': new_registration.date_id
+                'id': created.id,
+                'attendee_id': created.attendee_id,
+                'date_id': created.date_id
             }
         }), 201
     

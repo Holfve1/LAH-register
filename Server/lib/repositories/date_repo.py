@@ -11,10 +11,6 @@ class DateRepository:
             item = Date(row['id'], row['date'], row['activity_id'])
             dates.append(item)
         return dates
-
-    def create(self, date):
-        self.connection.execute('INSERT INTO dates (date, activity_id) VALUES(%s, %s)', [date.date, date.activity_id])
-        return None
     
     def create(self, date):
         rows = self.connection.execute(
@@ -44,3 +40,16 @@ class DateRepository:
             item = Date(row['id'], row['date'], row['activity_id'])
             dates.append(item)
         return dates
+
+    def find_by_date_and_activity_id(self, date_value, activity_id):
+        rows = self.connection.execute(
+            '''
+            SELECT * FROM dates
+            WHERE date = %s AND activity_id = %s
+            ''',
+            [date_value, activity_id]
+        )
+        if rows:
+            row = rows[0]
+            return Date(row['id'], row['date'], row['activity_id'])
+        return None

@@ -25,10 +25,22 @@ def apply_attendee_routes(app):
         connection = get_flask_database_connection(app)
         attendee_repo = AttendeeRepository(connection)
         data = request.get_json()
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        suburb = data.get('suburb')
-        # Build an Attendee model and persist via the repository
+        first_name = (data.get('first_name') or '').strip()
+        last_name  = (data.get('last_name') or '').strip()
+        suburb     = (data.get('suburb') or '').strip()
+
+        existing = attendee_repo.find_by_details(first_name, last_name, suburb)
+        if existing:
+            return jsonify({
+                'message': 'Attendee already exists',
+                'attendee': {
+                    'id': existing.id,
+                    'first_name': existing.first_name,
+                    'last_name': existing.last_name,
+                    'suburb': existing.suburb
+                }
+            }), 200
+        
         new_attendee = Attendee(None, first_name, last_name, suburb)
         attendee_repo.create(new_attendee)
         return jsonify({
