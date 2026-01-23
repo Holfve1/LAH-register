@@ -21,6 +21,15 @@ export function RegisterPage() {
       <div className="mt-24">
         <AttendeeForm />
       </div>
+      <div className="flex justify-center p-8">
+        <button
+          type="button"
+          onClick={() => navigate("/view")}
+          className="p-3 w-fit rounded bg-[#ea5136] text-white font-medium hover:bg-[#d1442d] transition cursor-pointer"
+        >
+          View Registrations
+        </button>
+      </div>
     </main>
   );
 }

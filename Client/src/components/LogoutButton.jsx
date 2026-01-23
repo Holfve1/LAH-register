@@ -14,7 +14,7 @@ export function LogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="p-3 w-fit rounded bg-[#ea5136] text-white font-medium hover:bg-[#d1442d] transition"
+      className="p-3 w-fit rounded bg-[#ea5136] text-white font-medium hover:bg-[#d1442d] transition cursor-pointer"
     >
       Logout
     </button>
