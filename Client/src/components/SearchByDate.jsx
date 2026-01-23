@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { getAllActivitiesWithDatesAndAttendees } from "../services/dates";
 
 export function SearchByDate() {
-  const [allRows, setAllRows] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+    const [allRows, setAllRows] = useState([]);
+    const [selectedDate, setSelectedDate] = useState("");
+    const [activitiesForDate, setActivitiesForDate] = useState([]);
+    const [rowsForSelectedDate, setRowsForSelectedDate] = useState([]);
+    const [selectedActivity, setSelectedActivity] = useState("");
+    const [attendees, setAttendees] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
   function formatDateDisplay(isoDate) {
   if (!isoDate) return "";
@@ -30,24 +33,37 @@ export function SearchByDate() {
     })();
   }, []);
 
-  function handleSearch(e) {
+    function handleSearch(e) {
     e.preventDefault();
     setError("");
-    setResults([]);
+    setActivitiesForDate([]);
+    setRowsForSelectedDate([]);
+    setSelectedActivity("");
+    setAttendees([]);
 
     if (!selectedDate) {
-      setError("Please select a date.");
-      return;
+        setError("Please select a date.");
+        return;
     }
 
     const rowsForDate = allRows.filter((row) => row.date === selectedDate);
-    setResults(rowsForDate);
-  }
+    const uniqueActivities = [...new Set(rowsForDate.map((row) => row.activity))];
 
+    setRowsForSelectedDate(rowsForDate);
+    setActivitiesForDate(uniqueActivities);
+    }
+
+    function handleActivityClick(activity) {
+        setSelectedActivity(activity);
+        const people = rowsForSelectedDate.filter(
+            (row) => row.activity === activity
+        );
+        setAttendees(people);
+    }
   // unique list of dates for the dropdown
-  const uniqueDates = [...new Set(allRows.map((row) => row.date))].sort(
-  (a, b) => new Date(b) - new Date(a)
-);
+    const uniqueDates = [...new Set(allRows.map((row) => row.date))].sort(
+    (a, b) => new Date(b) - new Date(a)
+    );
 
   return (
     <div
@@ -88,50 +104,82 @@ export function SearchByDate() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {results.length > 0 && (
+      {activitiesForDate.length > 0 && (
         <table
-          style={{
+            style={{
             marginTop: 16,
             borderCollapse: "collapse",
             width: "100%",
-          }}
+            }}
         >
-          <thead>
+            <thead>
             <tr>
-              <th
-                colSpan={3}
+                <th
                 style={{
-                  borderBottom: "1px solid white",
-                  color: "white",
-                  fontSize: "24px",
+                    borderBottom: "1px solid white",
+                    color: "white",
+                    fontSize: "24px",
                 }}
-              >
-                ACTIVITIES AND ATTENDEES ON: {selectedDate}
-              </th>
+                >
+                Activities on: {formatDateDisplay(selectedDate)}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {activitiesForDate.map((activity) => (
+                <tr
+                key={activity}
+                onClick={() => handleActivityClick(activity)}
+                style={{ cursor: "pointer" }}
+                >
+                <td style={{ padding: "4px 8px", color: "white" }}>
+                    {activity}
+                </td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+        )}
+        {attendees.length > 0 && (
+        <table
+            style={{
+            marginTop: 16,
+            borderCollapse: "collapse",
+            width: "100%",
+            }}
+        >
+            <thead>
+            <tr>
+                <th
+                colSpan={2}
+                style={{
+                    borderBottom: "1px solid white",
+                    color: "white",
+                    fontSize: "24px",
+                }}
+                >
+                Attendees for {selectedActivity} on {formatDateDisplay(selectedDate)}
+                </th>
             </tr>
             <tr>
-              <th style={{ color: "white", textAlign: "left" }}>Activity</th>
-              <th style={{ color: "white", textAlign: "left" }}>First name</th>
-              <th style={{ color: "white", textAlign: "left" }}>Last name</th>
+                <th style={{ color: "white", textAlign: "left" }}>First name</th>
+                <th style={{ color: "white", textAlign: "left" }}>Last name</th>
             </tr>
-          </thead>
-          <tbody>
-            {results.map((row, index) => (
-              <tr key={index}>
+            </thead>
+            <tbody>
+            {attendees.map((row, index) => (
+                <tr key={index}>
                 <td style={{ padding: "4px 8px", color: "white" }}>
-                  {row.activity}
+                    {row.first_name}
                 </td>
                 <td style={{ padding: "4px 8px", color: "white" }}>
-                  {row.first_name}
+                    {row.last_name}
                 </td>
-                <td style={{ padding: "4px 8px", color: "white" }}>
-                  {row.last_name}
-                </td>
-              </tr>
+                </tr>
             ))}
-          </tbody>
+            </tbody>
         </table>
-      )}
+        )}
     </div>
   );
 }
