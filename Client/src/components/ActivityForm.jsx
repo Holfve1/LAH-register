@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createActivity, getAllActivities } from "../services/activities";
 
 export function ActivityForm({ onSelectActivity }) {
@@ -6,6 +6,7 @@ export function ActivityForm({ onSelectActivity }) {
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     async function loadActivities() {
@@ -29,6 +30,10 @@ export function ActivityForm({ onSelectActivity }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    if (inputRef.current) {
+    inputRef.current.blur();
+    }
 
     const trimmed = activity.trim();
     if (!trimmed) {
@@ -65,39 +70,30 @@ export function ActivityForm({ onSelectActivity }) {
     setActivity(a.activity);
     setShowSuggestions(false);
     if (onSelectActivity) onSelectActivity(a);
+    if (inputRef.current) inputRef.current.blur();
   };
 
   return (
-    <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
+    <div className="p-6 font-sans">
       <form onSubmit={handleSubmit}>
-        <div style={{ position: "relative" }}>
-          <label>Activity</label>
+        <div className="relative inline-block w-72">
+          <div className="mb-6">
+            <label className="text-3xl text-white mb-6">Register</label>  
+          </div>
           <input
+            ref={inputRef}
             type="text"
             placeholder="Activity"
             value={activity}
             onChange={handleChange}
+            className="w-full p-3 rounded bg-white text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-[#ea5136]"
           />
 
           {showSuggestions && filteredActivities.length > 0 && (
-            <ul
-              style={{
-                position: "absolute",
-                zIndex: 1,
-                background: "white",
-                border: "1px solid #ccc",
-                listStyle: "none",
-                margin: 0,
-                padding: 0,
-                width: "100%",
-              }}
-            >
+            <ul className=
+            "absolute left-0 top-full z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow list-none m-0 p-0">
               {filteredActivities.map((a) => (
-                <li
-                  key={a.id}
-                  style={{ padding: "4px 8px", cursor: "pointer" }}
-                  onClick={() => handleSelectSuggestion(a)}
-                >
+                <li key={a.id} className="px-2 py-1 cursor-pointer hover:bg-gray-100" onClick={() => handleSelectSuggestion(a)} >
                   {a.activity}
                 </li>
               ))}
@@ -106,7 +102,6 @@ export function ActivityForm({ onSelectActivity }) {
         </div>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button>submit</button>
       </form>
     </div>
   );
