@@ -58,7 +58,7 @@ export function AttendeeForm() {
   };
 
    return (
-    <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
+    <div className="p-6 font-sans">
       {/* child forms report up into this component */}
       <ActivityForm
         onSelectActivity={(activity) => setSelectedActivityId(activity.id)}
@@ -70,30 +70,30 @@ export function AttendeeForm() {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>First Name</label>
           <input
             type="text"
             placeholder="First Name"
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)}
+            className="w-72 p-3 mb-4 rounded bg-white text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-[#ea5136]"
           />
         </div>
         <div>
-          <label>Last Name</label>
           <input
             type="text"
             placeholder="Last Name"
             value={last_name}
             onChange={(e) => setLast_name(e.target.value)}
+            className="w-72 p-3 mb-4 rounded bg-white text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-[#ea5136]"
           />
         </div>
         <div>
-          <label>Suburb</label>
           <input
             type="text"
             placeholder="Suburb"
             value={suburb}
             onChange={(e) => setSuburb(e.target.value)}
+            className="w-72 p-3 mb-4 rounded bg-white text-black placeholder-gray-500 shadow focus:outline-none focus:ring-2 focus:ring-[#ea5136]"
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}

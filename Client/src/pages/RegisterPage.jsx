@@ -18,7 +18,7 @@ export function RegisterPage() {
         <LogoutButton />
       </div>
 
-      <div className="mt-24">
+      <div>
         <AttendeeForm />
       </div>
       <div className="flex justify-center p-8">

@@ -66,4 +66,13 @@ body {
   border-radius: 20px
 }
 
+/* Hide native date picker icon in Chromium/WebKit */
+.date-white::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  pointer-events: none; /* ensures clicks hit our overlay button */
+}
 
+/* Optional: ensure dark control chrome */
+.date-white {
+  color-scheme: dark;
+}
