@@ -16,6 +16,12 @@ export function SearchByActivity() {
   const [selectedAttendeeName, setSelectedAttendeeName] = useState("");
   const [attendeeActivities, setAttendeeActivities] = useState([]);
 
+function formatDateDisplay(isoDate) {
+  if (!isoDate) return "";
+  const [year, month, day] = isoDate.split("-");
+  return `${day}/${month}/${year}`; // 2024-06-01 -> 01/06/2024
+}
+
   useEffect(() => {
     (async () => {
       try {
@@ -152,7 +158,7 @@ export function SearchByActivity() {
                 style={{ cursor: "pointer" }}
               >
                 <td style={{ padding: "4px 8px", color: "white" }}>
-                  {item.date}
+                  {formatDateDisplay(item.date)}
                 </td>
               </tr>
             ))}
@@ -178,7 +184,7 @@ export function SearchByActivity() {
                   fontSize: "30px",
                 }}
               >
-                Attendees for {selectedActivity ? selectedActivity.activity : "Activity"} on {selectedDate}
+                Attendees for {selectedActivity ? selectedActivity.activity : "Activity"} on {formatDateDisplay(selectedDate)}
               </th>
             </tr>
             <tr>
