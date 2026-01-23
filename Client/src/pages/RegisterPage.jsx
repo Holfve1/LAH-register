@@ -1,5 +1,6 @@
 import { AttendeeForm } from "../components/AttendeeForm";
 
 export function RegisterPage() {
-  return <AttendeeForm />;
+  return (<div style={{ transform: 'translateY(140px)' }}><AttendeeForm /></div>);
+
 }
