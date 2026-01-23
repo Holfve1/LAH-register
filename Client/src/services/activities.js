@@ -21,15 +21,19 @@ export async function createActivity(activity) {
 }
 
 export async function getAllActivities() {
-    const requestOptions = {
-        method: "Get",
-    }
+  const requestOptions = { method: "GET" };
 
-    const response = await fetch(`${API_URL}/activities`, requestOptions);
+  const response = await fetch(`${API_URL}/activities`, requestOptions);
 
-    if (response.status !== 200) {
-        throw new Error('Unable to fetch Activities')
-    }
-    const data = await response.json();
-    return data;
+  if (response.status !== 200) {
+    throw new Error("Unable to fetch Activities");
+  }
+
+  const data = await response.json();
+
+  const uniqueByName = [
+    ...new Map(data.map(activity => [activity.activity, activity])).values(),
+  ];
+
+  return uniqueByName;
 }
